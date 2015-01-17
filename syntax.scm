@@ -8,19 +8,33 @@
 (define the-lexical-spec
   '(
     (whitespace (whitespace)                skip)
-    (number     (digit (arbno digit))                     number)
+    (number     (digit (arbno digit))       number)
+    (identifier (letter (arbno letter))     symbol)
    )
 )
 ; Grammar
 (define the-grammar
   '(
-    (program (expression) a-program)
-
+    (program (expression) a-program) 
     (expression (number)  const-exp)
     (expression
-      ("zero?" "(" expression ")") zero?-exp)  
+     ("zero?" "(" expression ")") zero?-exp)
+        
     (expression
-     ("-" "(" expression "," expression ")")  diff-exp) 
+     ("cond" (arbno "{" expression "==>" expression "}") "end") cond-exp)
+    
+    (expression (primitive "(" expression "," expression ")") binary-bool-exp)
+    (expression (identifier) ident-exp)
+    (expression ("let" identifier "=" expression "in" expression) let-exp)
+    
+    (primitive ("equal?") equal-prim)
+    (primitive ("less?") less-prim)
+    (primitive ("greater?") greater-prim)
+    (primitive ("+") plus-prim)
+    (primitive ("*") times-prim)
+    (primitive ("/") divide-prim)
+    (primitive ("-") minus-prim)
+    
     (expression
      ("if" expression "then" expression "else" expression) if-exp)
     )
