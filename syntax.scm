@@ -17,15 +17,21 @@
   '(
     (program (expression) a-program) 
     (expression (number)  const-exp)
-    (expression
-     ("zero?" "(" expression ")") zero?-exp)
+    (expression ("zero?" "(" expression ")") zero?-exp)
         
     (expression
      ("cond" (arbno "{" expression "==>" expression "}") "end") cond-exp)
     
-    (expression (primitive "(" expression "," expression ")") binary-bool-exp)
+    (expression (primitive "(" expression "," expression ")") two-op-exp)
+    
     (expression (identifier) ident-exp)
     (expression ("let" identifier "=" expression "in" expression) let-exp)
+    
+    (expression ("[]") empty-list-exp)
+    (primitive ("cons") cons-prim)
+    ;;(expression ("car" "(" expression ")") car-exp)
+    ;;(expression ("cdr" "(" expression ")") cdr-exp)
+    ;;(expression ("null?" "(" expression ")") null-exp)
     
     (primitive ("equal?") equal-prim)
     (primitive ("less?") less-prim)

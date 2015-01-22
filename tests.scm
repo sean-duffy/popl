@@ -21,7 +21,8 @@
 ;
 ; ** Add more tests ***
 (define if3 ;; 1
-     "if zero?(-(5, 2)) then 0 else 1")
+     "if zero?(-(5, 2)) then 0 else 1"
+     )
 (define break "$")                    ;; error
 (define eq1 "equal?(1, 1)")           ;; #t
 (define eq2 "equal?(1, 2)")           ;; #f
@@ -32,6 +33,7 @@
 (define divide "/(6, 2)")             ;; 3
 (define minus "-(50, 25)")            ;; 25
 (define let1 "let a = -(5, 3) in a")  ;; 2
-(define let2 "let x = 5 in x")        ;; 2
-(define let3 "let y = +(3, 3) in zero?(y)") ;; 2
-(define cond1 "cond { zero?(2) ==> 1 } { zero?(0) ==> 5 } end")
+(define let2 "let x = 5 in x")        ;; 5
+(define let3 "let y = +(3, 3) in zero?(y)") ;; #f
+(define cond1 "cond { zero?(2) ==> 1 } { zero?(0) ==> 5 } end") ;; 5
+(define cond2 "cond { greater?(0, 1) ==> 0 } end") ;; error
