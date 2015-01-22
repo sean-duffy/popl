@@ -32,6 +32,7 @@
 (define divide "/(6, 2)")             ;; 3
 (define minus "-(50, 25)")            ;; 25
 (define let1 "let a = -(5, 3) in a")  ;; 2
-(define let2 "let x = 5 in x")        ;; 2
-(define let3 "let y = +(3, 3) in zero?(y)") ;; 2
+(define let2 "let x = 5 in x")        ;; 5
+(define let3 "let y = +(3, 3) in zero?(y)") ;; f
 (define cond1 "cond { zero?(2) ==> 1 } { zero?(0) ==> 5 } end")
+(define print1 "-(20, print(+(3, 2)))")

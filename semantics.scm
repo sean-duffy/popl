@@ -18,8 +18,6 @@
 
 (define e (empty-env))
 
-(define (cond-proc e conditions statements)
-  
 
 ;; ** Requires editing the ???s **
 (define (value-of e expr)                     
@@ -31,10 +29,12 @@
        (bool-ExpVal (zero? (<-ExpVal (value-of e exp))))
     )
     
+    (print-exp (exp) ((lambda (exp) (display (<-ExpVal exp)) (newline) exp) (value-of e exp)))
+    
     (cond-exp (conditions statements) (display statements))
     
     (binary-bool-exp (op exp1 exp2)
-       (let ((v ((cadr (assoc op (list 
+      (let ((v ((cadr (assoc op (list 
                                      (list (equal-prim) (lambda (a b) (equal? a b)))
                                      (list (greater-prim) (lambda (a b) (> a b)))
                                      (list (less-prim) (lambda (a b) (< a b)))
@@ -44,7 +44,7 @@
                                      (list (minus-prim) (lambda (a b) (- a b)))
                                      )
                            )) (<-ExpVal (value-of e exp1)) (<-ExpVal (value-of e exp2)))))
-         (if (number? v) (number-ExpVal v) (bool-ExpVal v)))
+         (->ExpVal v))
     )
     ;;(equal?-exp (exp1 exp2)
     ;;   (bool-ExpVal (equal? (<-ExpVal (value-of exp1)) (<-ExpVal (value-of exp2))))
