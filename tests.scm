@@ -37,3 +37,4 @@
 (define let3 "let y = +(3, 3) in zero?(y)") ;; #f
 (define cond1 "cond { zero?(2) ==> 1 } { zero?(0) ==> 5 } end") ;; 5
 (define cond2 "cond { greater?(0, 1) ==> 0 } end") ;; error
+(define print1 "-(20, print(+(3, 2)))")

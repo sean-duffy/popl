@@ -17,7 +17,11 @@
   '(
     (program (expression) a-program) 
     (expression (number)  const-exp)
-    (expression ("zero?" "(" expression ")") zero?-exp)
+    (expression
+     ("zero?" "(" expression ")") zero?-exp)
+    
+    (expression
+      ("print" "(" expression ")") print-exp)
         
     (expression
      ("cond" (arbno "{" expression "==>" expression "}") "end") cond-exp)

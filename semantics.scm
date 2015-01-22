@@ -41,6 +41,7 @@
     (cond-exp (conditions statements) (cond-proc e conditions statements))
     
     (empty-list-exp () (list-ExpVal '()))
+    (print-exp (exp) ((lambda (exp) (display (<-ExpVal exp)) (newline) exp) (value-of e exp)))
     
     (two-op-exp (op exp1 exp2)
        (let ((v ((cadr (assoc op (list 
@@ -54,13 +55,17 @@
                                      (list (cons-prim) (lambda (a b) (->ExpVal (cons a b))))
                                      )
                            )) (<-ExpVal (value-of e exp1)) (<-ExpVal (value-of e exp2)))))
-         (cond 
-           ((number? v) (number-ExpVal v))
-           ((boolean? v) (bool-ExpVal v))
-           ((list? v) (list-ExpVal v))
-         )
-    ))
-   
+         (->ExpVal v))
+    )
+    ;;(equal?-exp (exp1 exp2)
+    ;;   (bool-ExpVal (equal? (<-ExpVal (value-of exp1)) (<-ExpVal (value-of exp2))))
+    ;;)
+    ;;(greater?-exp (exp1 exp2)t
+    ;;   (bool-ExpVal (> (<-ExpVal (value-of exp1)) (<-ExpVal (value-of exp2))))
+    ;;)
+    ;;(less?-exp (exp1 exp2)
+    ;;   (bool-ExpVal (< (<-ExpVal (value-of exp1)) (<-ExpVal (value-of exp2)))))
+
     (if-exp (test true-exp false-exp)
          (if (ExpVal->bool (value-of e test))
                   (value-of e true-exp)         
