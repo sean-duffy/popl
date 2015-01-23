@@ -49,7 +49,7 @@
   (cases ExpVal x    
     (number-ExpVal (s) s)
     (bool-ExpVal   (s) s)
-    (list-ExpVal   (s) '())
+    (list-ExpVal   (s) s)
   )
 )
 ;;

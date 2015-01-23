@@ -3,6 +3,8 @@
 (provide  (all-defined-out))
 (require "syntax.scm")
 (require "data-structures.scm")
+(require srfi/1)
+
 ;; 
 ;; (execute ...) takes an abstract syntax representation of a program,
 ;; and returns its Expressed Value
@@ -31,8 +33,8 @@
 (define (value-of e expr)                     
   (cases expression expr    
     (let-exp (ident val exp) (value-of (extend-env ident (value-of e val) e) exp))
-    (const-exp (num) (number-ExpVal num) )
-    (ident-exp (ident) (apply-env e ident) )
+    (const-exp (num) (number-ExpVal num))
+    (ident-exp (ident) (apply-env e ident))
     
     (zero?-exp (exp)
        (bool-ExpVal (zero? (<-ExpVal (value-of e exp))))
@@ -41,6 +43,11 @@
     (cond-exp (conditions statements) (cond-proc e conditions statements))
     
     (empty-list-exp () (list-ExpVal '()))
+    ;;(list-literal-exp (items) (
+    (car-exp (exp) (->ExpVal (car (<-ExpVal (value-of e exp)))))
+    (cdr-exp (exp) (->ExpVal (cdr (<-ExpVal (value-of e exp)))))
+    (null?-exp (exp) (bool-ExpVal (null? (<-ExpVal (value-of e exp)))))
+    
     (print-exp (exp) ((lambda (exp) (display (<-ExpVal exp)) (newline) exp) (value-of e exp)))
     
     (two-op-exp (op exp1 exp2)
@@ -52,11 +59,12 @@
                                      (list (times-prim) (lambda (a b) (* a b)))
                                      (list (divide-prim) (lambda (a b) (/ a b)))
                                      (list (minus-prim) (lambda (a b) (- a b)))
-                                     (list (cons-prim) (lambda (a b) (->ExpVal (cons a b))))
+                                     (list (cons-prim) (lambda (a b) (cons a b)))
                                      )
                            )) (<-ExpVal (value-of e exp1)) (<-ExpVal (value-of e exp2)))))
          (->ExpVal v))
     )
+    
     ;;(equal?-exp (exp1 exp2)
     ;;   (bool-ExpVal (equal? (<-ExpVal (value-of exp1)) (<-ExpVal (value-of exp2))))
     ;;)

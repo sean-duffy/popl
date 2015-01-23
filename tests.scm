@@ -38,3 +38,8 @@
 (define cond1 "cond { zero?(2) ==> 1 } { zero?(0) ==> 5 } end") ;; 5
 (define cond2 "cond { greater?(0, 1) ==> 0 } end") ;; error
 (define print1 "-(20, print(+(3, 2)))")
+(define lst1 "cons(1, [])")                        ;; (1)
+(define lst2 "car(cons(1, cons(2, cons(3, []))))") ;; 1
+(define lst3 "cdr(cons(1, cons(2, cons(3, []))))") ;; (2 3)
+(define lst4 "null?(cons(1, cons(2, [])))")        ;; #f
+(define lst5 "null?([])")                          ;; #t       

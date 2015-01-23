@@ -26,16 +26,19 @@
     (expression
      ("cond" (arbno "{" expression "==>" expression "}") "end") cond-exp)
     
+    
     (expression (primitive "(" expression "," expression ")") two-op-exp)
     
     (expression (identifier) ident-exp)
     (expression ("let" identifier "=" expression "in" expression) let-exp)
+    ;;(expression ("let"  (arbno "{" identifier "=" expression "}") "*" "in" expression) let-n-exp)
     
     (expression ("[]") empty-list-exp)
+    ;;(expression ("[" expression (arbno "," expression) "]") list-literal-exp)
     (primitive ("cons") cons-prim)
-    ;;(expression ("car" "(" expression ")") car-exp)
-    ;;(expression ("cdr" "(" expression ")") cdr-exp)
-    ;;(expression ("null?" "(" expression ")") null-exp)
+    (expression ("car" "(" expression ")") car-exp)
+    (expression ("cdr" "(" expression ")") cdr-exp)
+    (expression ("null?" "(" expression ")") null?-exp)
     
     (primitive ("equal?") equal-prim)
     (primitive ("less?") less-prim)
