@@ -1,6 +1,7 @@
 #lang eopl
 (require "syntax.scm")
 (provide (all-defined-out))
+(require srfi/1)
 ;;
 
 ;;

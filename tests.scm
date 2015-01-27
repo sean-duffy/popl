@@ -32,9 +32,9 @@
 (define times1 "*(2, 5)")             ;; 10
 (define divide "/(6, 2)")             ;; 3
 (define minus "-(50, 25)")            ;; 25
-(define let1 "let a = -(5, 3) in a")  ;; 2
-(define let2 "let x = 5 in x")        ;; 5
-(define let3 "let y = +(3, 3) in zero?(y)") ;; #f
+(define let1 "let {a = -(5, 3)} in a")  ;; 2
+(define let2 "let {x = 5} in x")        ;; 5
+(define let3 "let {y = +(3, 3)} in zero?(y)") ;; #f
 (define cond1 "cond { zero?(2) ==> 1 } { zero?(0) ==> 5 } end") ;; 5
 (define cond2 "cond { greater?(0, 1) ==> 0 } end") ;; error
 (define print1 "-(20, print(+(3, 2)))")
@@ -43,3 +43,7 @@
 (define lst3 "cdr(cons(1, cons(2, cons(3, []))))") ;; (2 3)
 (define lst4 "null?(cons(1, cons(2, [])))")        ;; #f
 (define lst5 "null?([])")                          ;; #t       
+(define litlist1 "[1, 2, 3, 4]")                   ;; (1 2 3 4)
+(define litlist2 "cdr([1, 2, 3, 4])")              ;; (2 3 4)
+(define letn1 "let {x = 5} {y = 10} in *(x, y)")   ;; 50
+(define letn2 "let* {n = 2} {i = +(n, 2)} in i")   ;; 4

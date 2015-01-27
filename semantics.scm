@@ -31,8 +31,24 @@
 )
   
 (define (value-of e expr)                     
-  (cases expression expr    
-    (let-exp (ident val exp) (value-of (extend-env ident (value-of e val) e) exp))
+  (cases expression expr
+    
+    (let-seq-exp (idents values exp) 
+      (value-of (fold-right 
+                  (lambda (pair env) (extend-env (car pair) (value-of env (cadr pair)) env)) 
+                  (empty-env) 
+                  (reverse (map list idents values))
+                ) exp)
+    )
+    
+    (let-exp (idents values exp) 
+      (value-of (fold-right 
+                  (lambda (pair env) (extend-env (car pair) (value-of e (cadr pair)) env)) 
+                  (empty-env) 
+                  (map list idents values) 
+                ) exp)
+    )
+    
     (const-exp (num) (number-ExpVal num))
     (ident-exp (ident) (apply-env e ident))
     
@@ -43,7 +59,7 @@
     (cond-exp (conditions statements) (cond-proc e conditions statements))
     
     (empty-list-exp () (list-ExpVal '()))
-    ;;(list-literal-exp (items) (
+    (list-literal-exp (fst items) (list-ExpVal (cons (<-ExpVal(value-of e fst)) (fold-right (lambda (a b) (cons (<-ExpVal (value-of e a)) b)) (list) items))))
     (car-exp (exp) (->ExpVal (car (<-ExpVal (value-of e exp)))))
     (cdr-exp (exp) (->ExpVal (cdr (<-ExpVal (value-of e exp)))))
     (null?-exp (exp) (bool-ExpVal (null? (<-ExpVal (value-of e exp)))))

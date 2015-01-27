@@ -30,11 +30,11 @@
     (expression (primitive "(" expression "," expression ")") two-op-exp)
     
     (expression (identifier) ident-exp)
-    (expression ("let" identifier "=" expression "in" expression) let-exp)
-    ;;(expression ("let"  (arbno "{" identifier "=" expression "}") "*" "in" expression) let-n-exp)
+    (expression ("let" (arbno "{" identifier "=" expression "}") "in" expression) let-exp)
+    (expression ("let*" (arbno "{" identifier "=" expression "}") "in" expression) let-seq-exp)
     
     (expression ("[]") empty-list-exp)
-    ;;(expression ("[" expression (arbno "," expression) "]") list-literal-exp)
+    (expression ("[" expression (arbno "," expression) "]") list-literal-exp)
     (primitive ("cons") cons-prim)
     (expression ("car" "(" expression ")") car-exp)
     (expression ("cdr" "(" expression ")") cdr-exp)
